@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: YCS5 API
+  description: "This is an YCS5 Pricing API documentation"
+  version: 0.0.1
+servers:
+  - url: http://localhost:10100
+  - url: https://localhost:10101
+
+paths:
+  /api/rate/fpols/search:
+    post:
+      tags:
+      - "fplos"
+      summary: "To let channel manager be able to query the rates with restriction based on given search criteria"
+      parameters:
+      - in: "query"
+        name: "body"
+        description: "the query"
+        required: true
+        schema:
+          $ref: "#/components/schemas/FPLOSSearchRequest"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FPLOSSearchResponse"
+        "405":
+          description: "Invalid Input"
+      security:
+      - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query 
+      name: apiKey
+  schemas:  
+    FPLOSSearchRequest:
+      type: object
+      properties:
+        propertyId:
+          type: "integer"
+          format: "int64"
+          description: Valid Agoda Property ID that partner has access to
+        roomId:
+          type: "integer"
+          format: "int64"
+          description: "Agoda Room ID related to the property inventory element.\n * Agoda active Room IDs can be returned with Getproduct request."
+        ratePlanId:
+          type: "integer"
+          format: "int64"
+          description: Agoda Rateplan ID related to a particular offer active on a room.\n *Agoda active Rate Type IDs can be returned with Getproduct request. 
+        checkInDateRange:
+          $ref: "#/components/schemas/DateRange"
+          description: Date range of interested check-in date
+        los:
+          $ref: "#/components/schemas/LengthOfStay"
+          description: If not specified, the response will contain the rate of all length of stay that have been set
+    FPLOSSearchResponse:
+      type: object
+      properties:
+        propertyId:
+          type: integer
+          format: int64
+          description: Agoda Property Id
+########## non-request/response object
+    DateRange:  
+      type: object
+      properties:
+        start:
+          type: "string"
+          format: "yyyy-mm-dd"
+          description: Start of check-in date range to get rate in the format YYYY-MM-DD
+          example: "2021-12-10"
+        end:
+          type: "string"  
+          format: "yyyy-mm-dd"
+          description: End of check-in date range to get rate in the format YYYY-MM-DD
+          example: "2021-12-10"
+    LengthOfStay:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int64
+          description: Start length of stay range
+        end:
+          type: integer
+          format: int64
+          description: End length of stay range
