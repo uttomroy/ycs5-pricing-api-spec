@@ -210,7 +210,7 @@ components:
           type: string
           enum: [SUCCESS,ERROR]
           description: Response status
-          example: SUCCESS
+          example: ERROR
         tuid:
           type: string
           description: A Track Unique Identifier (TUID) is an identifier which is guaranteed to be unique and it has a specific tracking purpose.
