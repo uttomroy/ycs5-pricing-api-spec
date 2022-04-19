@@ -200,7 +200,6 @@ components:
           format: int32
           description: |
             Restriction per los
-
 # Request/Response Object
     GenericResponse:
       description: General Api response, to indicate the operation's status
@@ -227,8 +226,6 @@ components:
               description: Error description
               example: | 
                 Authentication failed: The resource requires authentication, which was not supplied with the request
-    PostRateLosRequest:
-      type: object
     SearchLosRequest:
       type: object
       description: The request body
@@ -257,3 +254,8 @@ components:
           $ref: "#/components/schemas/RateList"
         restriction:
           $ref: "#/components/schemas/RateRestriction"
+    PostRateLosRequest:
+      type: object
+      description: The setup/update price offer 's request
+      properties:
+        
