@@ -2,9 +2,12 @@ openapi: 3.0.3
 info:
   title: "LOS Pricing API"
   description: ""
-  version: "1.0.0"
+  version: "0.0.1"
 servers:
 - url: https://supply.agoda.com
+  description: "the existing api service for YCS5 apis"
+- url: https://suppoly-pricing.agoda.com
+  description: "new api service (under development)"
 security: []
 paths:
   /api/rate/fplos:
@@ -254,8 +257,21 @@ components:
           $ref: "#/components/schemas/RateList"
         restriction:
           $ref: "#/components/schemas/RateRestriction"
+          type: object
     PostRateLosRequest:
       type: object
       description: The setup/update price offer 's request
       properties:
-        
+        propertyId:
+          $ref: "#/components/schemas/PropertyId"
+        roomId:
+          $ref: "#/components/schemas/RoomId"
+        ratePlanId:
+          $ref: "#/components/schemas/RatePlanId"
+        checkInDateRange:
+          $ref: "#/components/schemas/CheckInDateRange"
+        rate:
+          $ref: "#/components/schemas/Rate"
+        restricion:
+          type: object
+          description: The custom rate restriction rule, doesn't suppported yet at this version, please see the RateRestriction object to understand the default values we will used
