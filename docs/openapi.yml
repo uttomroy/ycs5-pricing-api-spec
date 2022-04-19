@@ -37,14 +37,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetLosRequest'
+              $ref: '#/components/schemas/SearchLosRequest'
       responses:
         200:
           description: Create response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SearchLosResponse'
         403:
           description: Failing request
           content:
@@ -228,6 +228,32 @@ components:
               example: | 
                 Authentication failed: The resource requires authentication, which was not supplied with the request
     PostRateLosRequest:
-      type: string
-    GetLosRequest:
-      type: string
+      type: object
+    SearchLosRequest:
+      type: object
+      description: The request body
+      properties:
+        propertyId: 
+          $ref: "#/components/schemas/PropertyId"
+        roomId:
+          $ref: "#/components/schemas/RoomId"
+        ratePlanId:
+          $ref: "#/components/schemas/RatePlanId"
+        checkInDateRange:
+          $ref: "#/components/schemas/CheckInDateRange"
+        los:
+          $ref: "#/components/schemas/LOS"
+    SearchLosResponse:
+      type: object
+      description: The search query result 
+      properties:
+        propertyId:
+          $ref: "#/components/schemas/PropertyId"
+        roomId:
+          $ref: "#/components/schemas/RoomId"
+        ratePlanId:
+          $ref: "#/components/schemas/RatePlanId"
+        rates:
+          $ref: "#/components/schemas/RateList"
+        restriction:
+          $ref: "#/components/schemas/RateRestriction"
