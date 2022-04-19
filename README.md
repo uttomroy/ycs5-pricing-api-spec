@@ -3,7 +3,9 @@
 ### OpenAPI Specficiation
 [docs/openapi.yml](docs/openapi.yml)
 
-## Interactive documentation
+## Product documentation
+[Setting up price offer based on length of stay](docs/los-pricing.md)
+
 ### localhost 
 - download and install visual studio code
 - checkout this code
