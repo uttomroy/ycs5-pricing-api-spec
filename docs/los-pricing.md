@@ -43,7 +43,7 @@ your request will look like this
                 },
                 {
                   "los": 4,
-                  "value": 5500.00
+                  "value": 5000.00
                 }
               ]
             }
@@ -159,4 +159,4 @@ The last rule will take priority, please check the scenario below
 }
 ```
 
-then the booking that happened after 4 January 2022 to 7 January 2022 will use a diffrent rate
+then the booking that happened after 4 January 2022 to 6 January 2022 will use 10200, 10000, 9000 as a rate depends on length of stay, instead of 6200, 6000, 5500, 5000
