@@ -256,7 +256,7 @@ components:
         rates:
           $ref: "#/components/schemas/RateList"
         restriction:
-          $ref: "#/components/schemas/RateRestriction"
+         # $ref: "#/components/schemas/RateRestriction"
           type: object
     PostRateLosRequest:
       type: object
