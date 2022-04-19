@@ -2,4 +2,4 @@ This operation allows the user to setting up a price strategy based on length of
 
 ## Use Cases
 ### Setting up a new length of stay price rule
-![Los](docs/images/los-pricing-strategy.svg)
+![Los](images/los-pricing-strategy.svg)
