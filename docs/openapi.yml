@@ -1,93 +1,242 @@
 openapi: 3.0.3
 info:
-  title: YCS5 API
-  description: "This is an YCS5 Pricing API documentation"
-  version: 0.0.1
+  title: "LOS Pricing API"
+  description: ""
+  version: "1.0.0"
 servers:
-  - url: http://localhost:10100
-  - url: https://localhost:10101
-
+- url: https://supply.agoda.com
+security: []
 paths:
-  /api/rate/fpols/search:
+  /api/rate/fplos:
     post:
-      tags:
-      - "fplos"
-      summary: "To let channel manager be able to query the rates with restriction based on given search criteria"
-      parameters:
-      - in: "query"
-        name: "body"
-        description: "the query"
-        required: true
-        schema:
-          $ref: "#/components/schemas/FPLOSSearchRequest"
+      summary: Set LOS Pricing
+      operationId: route
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetLosRateRequest'
       responses:
-        "200":
-          description: "OK"
+        200:
+          description: Create response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FPLOSSearchResponse"
-        "405":
-          description: "Invalid Input"
-      security:
-      - ApiKeyAuth: []
+                $ref: '#/components/schemas/SetLosRateResponse'
+        500:
+          description: Internal server error
+  /api/rate/fplos/read:
+    post:
+      summary: Get LOS Pricing
+      operationId: getRoute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetLosRateRequest'
+      responses:
+        200:
+          description: Create response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLosRateResponse'
+        500:
+          description: Internal server error
 components:
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: query 
-      name: apiKey
-  schemas:  
-    FPLOSSearchRequest:
+  schemas:
+    Error:
+      required:
+      - code
       type: object
       properties:
-        propertyId:
-          type: "integer"
-          format: "int64"
-          description: Valid Agoda Property ID that partner has access to
-        roomId:
-          type: "integer"
-          format: "int64"
-          description: "Agoda Room ID related to the property inventory element.\n * Agoda active Room IDs can be returned with Getproduct request."
-        ratePlanId:
-          type: "integer"
-          format: "int64"
-          description: Agoda Rateplan ID related to a particular offer active on a room.\n *Agoda active Rate Type IDs can be returned with Getproduct request. 
-        checkInDateRange:
-          $ref: "#/components/schemas/DateRange"
-          description: Date range of interested check-in date
+        code:
+          type: integer
+          format: int32
+        desc:
+          type: string
+    SetLosRateResponse:
+      required:
+      - errors
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+        tuid:
+          type: string
+        errors:
+          required:
+          - empty
+          type: array
+          properties:
+            empty:
+              type: boolean
+            traversableAgain:
+              type: boolean
+          items:
+            $ref: '#/components/schemas/Error'
+    DateRange:
+      required:
+      - start
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+    Occupancy:
+      type: object
+      properties:
+        min:
+          type: integer
+          format: int32
+        max:
+          type: integer
+          format: int32
+    Price:
+      required:
+      - occupancy
+      - value
+      type: object
+      properties:
         los:
-          $ref: "#/components/schemas/LengthOfStay"
-          description: If not specified, the response will contain the rate of all length of stay that have been set
-    FPLOSSearchResponse:
+          type: integer
+          format: int32
+        value:
+          type: number
+          format: double
+        occupancy:
+          $ref: '#/components/schemas/Occupancy'
+    Rate:
+      required:
+      - prices
+      type: object
+      properties:
+        currency:
+          type: string
+        prices:
+          required:
+          - empty
+          type: array
+          properties:
+            empty:
+              type: boolean
+            traversableAgain:
+              type: boolean
+          items:
+            $ref: '#/components/schemas/Price'
+    RateRestriction:
+      type: object
+      properties:
+        closed:
+          type: boolean
+        cta:
+          type: boolean
+        ctd:
+          type: boolean
+        minStay:
+          type: integer
+          format: int32
+        maxStay:
+          type: integer
+          format: int32
+        minStayThrough:
+          type: integer
+          format: int32
+        minAdvPurchase:
+          type: integer
+          format: int32
+        maxAdvPurchase:
+          type: integer
+          format: int32
+        losRestriction:
+          type: string
+    SetLosRateRequest:
+      required:
+      - dateRange
+      - propertyId
+      - rate
       type: object
       properties:
         propertyId:
           type: integer
-          format: int64
-          description: Agoda Property Id
-########## non-request/response object
-    DateRange:  
+          format: int32
+        roomId:
+          type: integer
+          format: int32
+        ratePlanId:
+          type: integer
+          format: int32
+        dateRange:
+          $ref: '#/components/schemas/DateRange'
+        rate:
+          $ref: '#/components/schemas/Rate'
+        restriction:
+          $ref: '#/components/schemas/RateRestriction'
+    GetLosRateResponse:
+      required:
+      - dateRange
+      - propertyId
+      - rates
       type: object
       properties:
-        start:
-          type: "string"
-          format: "yyyy-mm-dd"
-          description: Start of check-in date range to get rate in the format YYYY-MM-DD
-          example: "2021-12-10"
-        end:
-          type: "string"  
-          format: "yyyy-mm-dd"
-          description: End of check-in date range to get rate in the format YYYY-MM-DD
-          example: "2021-12-10"
-    LengthOfStay:
+        propertyId:
+          type: integer
+          format: int32
+        roomId:
+          type: integer
+          format: int32
+        ratePlanId:
+          type: integer
+          format: int32
+        dateRange:
+          $ref: '#/components/schemas/DateRange'
+        rates:
+          type: array
+          properties:
+            empty:
+              type: boolean
+            traversableAgain:
+              type: boolean
+          items:
+            $ref: '#/components/schemas/LosRate'
+    LosRate:
+      required:
+      - rate
+      type: object
+      properties:
+        allotmentDate:
+          type: string
+        rate:
+          $ref: '#/components/schemas/Rate'
+        restriction:
+          $ref: '#/components/schemas/RateRestriction'
+    GetLosRateRequest:
+      required:
+      - dateRange
+      - propertyId
+      type: object
+      properties:
+        propertyId:
+          type: integer
+          format: int32
+        roomId:
+          type: integer
+          format: int32
+        ratePlanId:
+          type: integer
+          format: int32
+        dateRange:
+          $ref: '#/components/schemas/DateRange'
+        los:
+          $ref: '#/components/schemas/Los'
+    Los:
       type: object
       properties:
         start:
           type: integer
-          format: int64
-          description: Start length of stay range
+          format: int32
         end:
           type: integer
-          format: int64
-          description: End length of stay range
+          format: int32
