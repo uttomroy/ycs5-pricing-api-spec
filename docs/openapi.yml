@@ -172,8 +172,6 @@ components:
           $ref: '#/components/schemas/DateRange'
         rate:
           $ref: '#/components/schemas/Rate'
-        restriction:
-          $ref: '#/components/schemas/RateRestriction'
     GetLosRateResponse:
       required:
       - dateRange
