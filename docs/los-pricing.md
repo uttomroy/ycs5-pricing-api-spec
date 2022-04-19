@@ -40,6 +40,10 @@ your request will look like this
                 {
                   "los": 3,
                   "value": 5500.00
+                },
+                {
+                  "los": 4,
+                  "value": 5500.00
                 }
               ]
             }
