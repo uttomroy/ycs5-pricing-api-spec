@@ -21,7 +21,7 @@ From the figure above, if you wanted to change your policy, you may made a reque
 ```json
 ```
 
-![post-update](images/rendered/los-update.svg)
+![update](images/rendered/los-update.svg)
 
 when you made a request, any booking date that made in 4-6 will use rule B instead of A
 
