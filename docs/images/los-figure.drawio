@@ -1,9 +1,12 @@
 <mxfile host="65bd71144e">
     <diagram id="A1JjtgstVEOvCGGx2JsE" name="Page-1">
-        <mxGraphModel dx="862" dy="669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="662" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="20" width="620" height="210" as="geometry"/>
+                </mxCell>
                 <mxCell id="FjVhsPUr0KgvrovN63E5-11" value="CheckInDateRange" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="40" y="40" as="sourcePoint"/>
