@@ -8,7 +8,7 @@ servers:
 security: []
 paths:
   /api/rate/fplos:
-    post:
+    put:
       summary: Set LOS Pricing
       operationId: route
       requestBody:
@@ -18,7 +18,7 @@ paths:
               $ref: '#/components/schemas/SetLosRateRequest'
       responses:
         200:
-          description: Create response
+          description: The LOS pricing rule have been successfully setted up
           content:
             application/json:
               schema:
