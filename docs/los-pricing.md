@@ -8,6 +8,7 @@ Given you want a traveller to get a custom price on 1-4 if they stay more than 2
 
 your request will look like this
 
+Rule A request
 ```json
 {
   "propertyId": 5,
@@ -63,6 +64,7 @@ you will get the price setup like this
 ![setting up](images/rendered/los-figure.svg)
 From the figure above, if you wanted to change your policy, you may made a request that look like this
 
+Rule B request
 ```json
 {
   "propertyId": 5,
@@ -116,6 +118,7 @@ The last rule will take priority, please check the scenario below
 
 ![update with overlapped rule](images/rendered/los-update-overlapped.svg)
 
+Given that Rule B looks like this
 ```json
 {
   "propertyId": 5,
