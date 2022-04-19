@@ -11,7 +11,7 @@ paths:
     post:
       summary: Set or Update LOS Pricing
       externalDocs:
-        url: https://github.com/agoda-com/ycs5-pricing-api-spec/wiki/Setting-up-a-rate-with-length-of-stay-policy
+        url: "docs/los-pricing.md"
       requestBody:
         content:
           application/json:
