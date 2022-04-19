@@ -24,7 +24,8 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"42Crunch.vscode-openapi"
+		"42Crunch.vscode-openapi",
+		"hediet.vscode-drawio"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
