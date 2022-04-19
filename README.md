@@ -4,10 +4,10 @@
 [docs/openapi.yml](docs/openapi.yml)
 
 ## Interactive documentation
-### local machine 
+### localhost 
+- download and install visual studio code
 - checkout this code
 - docker-compose up -d
-- open your browser to http://localhost:8080
 
 ### mobile devices
 - copy content of [docs/openapi.yml](docs/openapi.yml)
@@ -16,3 +16,7 @@
 
 ## Technical Comments/Contribution/Spec request
 - please open issue in this repository
+
+## Todo
+- [ ] devcontainer
+- [ ] pact supported for mock server generation
