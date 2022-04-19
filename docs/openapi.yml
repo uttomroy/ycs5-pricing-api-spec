@@ -11,7 +11,7 @@ paths:
     post:
       summary: Set or Update LOS Pricing
       externalDocs:
-        url: "docs/los-pricing.md"
+        url: //docs/los-pricing.md
       requestBody:
         content:
           application/json:
