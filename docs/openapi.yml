@@ -6,7 +6,7 @@ info:
 servers:
 - url: https://supply.agoda.com
   description: "the existing api service for YCS5 apis"
-- url: https://suppoly-pricing.agoda.com
+- url: https://supply-pricing.agoda.com
   description: "new api service (under development)"
 security: []
 paths:
@@ -14,7 +14,7 @@ paths:
     post:
       summary: Set or Update LOS Pricing
       externalDocs:
-        url: //docs/los-pricing.md
+        url: https://github.com/agoda-com/ycs5-pricing-api-spec/blob/master/docs/los-pricing.md
       requestBody:
         content:
           application/json:
