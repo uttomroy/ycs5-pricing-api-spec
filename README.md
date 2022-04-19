@@ -12,7 +12,7 @@
 ### mobile devices
 - copy content of [docs/openapi.yml]
 - paste it to https://editor.swagger.io/ 
-<img width="1674" alt="image" src="https://user-images.githubusercontent.com/8407412/163927601-33df517d-38c4-4968-82d8-46a72134f74b.png">
+<img width="1674" alt="image" src="https://user-images.githubusercontent.com/8407412/163927699-066f933c-07ed-4bdf-8708-d6443ce8dc03.png">
 
 ## Technical Comments/Contribution/Spec request
 - please open issue in this repository
