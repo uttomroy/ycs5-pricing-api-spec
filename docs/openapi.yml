@@ -9,232 +9,165 @@ security: []
 paths:
   /api/rate/fplos:
     post:
-      summary: Set LOS Pricing
-      operationId: route
+      summary: Set or Update LOS Pricing
+      externalDocs:
+        url: https://github.com/agoda-com/ycs5-pricing-api-spec/wiki/Setting-up-a-rate-with-length-of-stay-policy
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SetLosRateRequest'
+              $ref: '#/components/schemas/PostRateLosRequest'
       responses:
         200:
-          description: Create response
+          description: Price Rule already setted up
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SetLosRateResponse'
-        500:
-          description: Internal server error
-  /api/rate/fplos/read:
+                $ref: '#/components/schemas/GenericResponse'
+        403:
+          description: Failing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+  /api/rate/fplos/search:
     post:
       summary: Get LOS Pricing
-      operationId: getRoute
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetLosRateRequest'
+              $ref: '#/components/schemas/GetLosRequest'
       responses:
         200:
           description: Create response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetLosRateResponse'
-        500:
-          description: Internal server error
+                $ref: '#/components/schemas/GenericResponse'
+        403:
+          description: Failing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
 components:
   schemas:
-    Error:
+    PropertyId:
+      type: integer
+      format: int32
+      description: Valid Agoda Property ID that partner has access to
+      example: 123
+    RoomId:
+      type: integer
+      format: int32
+      description: |
+        Agoda Room ID related to the property inventory element. <br/> 
+        <i>Agoda active Room IDs can be returned with Getproduct request.</i>
+      example: 12301
+    RatePlanId:
+      type: integer
+      format: int32
+      description: Agoda Rateplan ID related to a particular offer active on a room. <br/> Agoda active Rate Type IDs can be returned with Getproduct request.
+    CheckInDateRange:
       required:
-      - code
+      - start
+      - end
+      description: Date range of interested check-in date
       type: object
       properties:
-        code:
+        start:
+          type: string
+          format: "YYYY-MM-DD"
+          description: Start of check-in date range to get rate in the format YYYY-MM-DD
+          example: "2021-12-10"
+        end:
+          type: string
+          description: End of check-in date range to get rate in the format YYYY-MM-DD
+          format: "YYYY-MM-DD"
+          example: "2021-12-31"
+    LOS:
+      properties:
+        start:
           type: integer
           format: int32
-        desc:
+          description: Start lengtgh of stay range
+          example: 1
+        end: 
+          type: integer
+          format: int32
+          description: End lengtgh of stay range
+          example: 10
+    RateList:
+      description: Rate list for each check-in date
+      properties:
+        checkinDate:
           type: string
-    SetLosRateResponse:
-      required:
-      - errors
-      - status
+          format: "YYYY-MM-DD"
+          description: "Check-in date"
+          example: "2022-03-02"
+        rate:
+          type: array
+          items:
+            $ref: "#/components/schemas/Rate"
+    Rate:
+      properties:
+        currency:
+          type: string
+          description: Rate plan's rate currency (must be the same currency as set up in property level)
+          example: USD
+        prices:
+          description: Price List
+          type: array
+          items:
+            $ref: "#/components/schemas/Price"
+    Price:
+      description: Price object
+      type: object
+      properties:
+        los:
+          type: integer
+          description: Length of stay
+          example: 1
+        value:
+          type: number
+          description: Price Value (with the currrency described in property level)
+          example: 123.45
+        occupancy:
+          type: object
+          properties:
+            min:
+              type: integer
+              description: minimum occupancy
+            max:
+              type: integer
+              description: maximum occupancy
+    GenericResponse:
+      description: General Api response, to indicate the operation's status
       type: object
       properties:
         status:
           type: string
+          enum: [SUCCESS,ERROR]
+          description: Response status
+          example: SUCCESS
         tuid:
           type: string
-        errors:
-          required:
-          - empty
-          type: array
+          description: A Track Unique Identifier (TUID) is an identifier which is guaranteed to be unique and it has a specific tracking purpose.
+          example: 49ecd740-34c9-11e9-bef4-137e7754803f
+        error:
+          type: object
           properties:
-            empty:
-              type: boolean
-            traversableAgain:
-              type: boolean
-          items:
-            $ref: '#/components/schemas/Error'
-    DateRange:
-      required:
-      - start
-      type: object
-      properties:
-        start:
-          type: string
-        end:
-          type: string
-    Occupancy:
-      type: object
-      properties:
-        min:
-          type: integer
-          format: int32
-        max:
-          type: integer
-          format: int32
-    Price:
-      required:
-      - occupancy
-      - value
-      type: object
-      properties:
-        los:
-          type: integer
-          format: int32
-        value:
-          type: number
-          format: double
-        occupancy:
-          $ref: '#/components/schemas/Occupancy'
-    Rate:
-      required:
-      - prices
-      type: object
-      properties:
-        currency:
-          type: string
-        prices:
-          required:
-          - empty
-          type: array
-          properties:
-            empty:
-              type: boolean
-            traversableAgain:
-              type: boolean
-          items:
-            $ref: '#/components/schemas/Price'
-    RateRestriction:
-      type: object
-      properties:
-        closed:
-          type: boolean
-        cta:
-          type: boolean
-        ctd:
-          type: boolean
-        minStay:
-          type: integer
-          format: int32
-        maxStay:
-          type: integer
-          format: int32
-        minStayThrough:
-          type: integer
-          format: int32
-        minAdvPurchase:
-          type: integer
-          format: int32
-        maxAdvPurchase:
-          type: integer
-          format: int32
-        losRestriction:
-          type: string
-    SetLosRateRequest:
-      required:
-      - dateRange
-      - propertyId
-      - rate
-      type: object
-      properties:
-        propertyId:
-          type: integer
-          format: int32
-        roomId:
-          type: integer
-          format: int32
-        ratePlanId:
-          type: integer
-          format: int32
-        dateRange:
-          $ref: '#/components/schemas/DateRange'
-        rate:
-          $ref: '#/components/schemas/Rate'
-    GetLosRateResponse:
-      required:
-      - dateRange
-      - propertyId
-      - rates
-      type: object
-      properties:
-        propertyId:
-          type: integer
-          format: int32
-        roomId:
-          type: integer
-          format: int32
-        ratePlanId:
-          type: integer
-          format: int32
-        dateRange:
-          $ref: '#/components/schemas/DateRange'
-        rates:
-          type: array
-          properties:
-            empty:
-              type: boolean
-            traversableAgain:
-              type: boolean
-          items:
-            $ref: '#/components/schemas/LosRate'
-    LosRate:
-      required:
-      - rate
-      type: object
-      properties:
-        allotmentDate:
-          type: string
-        rate:
-          $ref: '#/components/schemas/Rate'
-        restriction:
-          $ref: '#/components/schemas/RateRestriction'
-    GetLosRateRequest:
-      required:
-      - dateRange
-      - propertyId
-      type: object
-      properties:
-        propertyId:
-          type: integer
-          format: int32
-        roomId:
-          type: integer
-          format: int32
-        ratePlanId:
-          type: integer
-          format: int32
-        dateRange:
-          $ref: '#/components/schemas/DateRange'
-        los:
-          $ref: '#/components/schemas/Los'
-    Los:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        end:
-          type: integer
-          format: int32
+            code:
+              type: integer
+              description: error code
+              example: 1503
+            description:
+              type: string
+              description: Error description
+              example: | 
+                Authentication failed: The resource requires authentication, which was not supplied with the request
+    PostRateLosRequest:
+      type: string
+    GetLosRequest:
+      type: string
