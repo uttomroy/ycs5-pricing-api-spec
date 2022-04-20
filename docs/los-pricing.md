@@ -57,6 +57,7 @@ Rule A request
   ]
 }
 ```
+each blog indicate a set of uniqe identifier
 
 when you made a request, the api will store information in Agoda system, and you can retrived the current setup via https://supply.agoda.com/api/price/fplos/search
 you will get the price setup like this
