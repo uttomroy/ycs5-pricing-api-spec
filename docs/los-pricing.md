@@ -4,7 +4,9 @@ This operation allows the user to setting up a price strategy based on length of
 ### Setting up a new length of stay price rule
 ![setting up](images/rendered/los-figure.svg)
 
-Given you want a traveller to get a custom price on 1-4 if they stay more than 2 days
+Block 1-7 indicate unique identifier that follows this rule
+- 2022-01-X where x is date number
+- same roomTypeId, propertyId, occupancy
 
 your request will look like this
 
@@ -62,6 +64,7 @@ you will get the price setup like this
 ### Updating a lenght of stay rule
 
 ![setting up](images/rendered/los-figure.svg)
+
 From the figure above, if you wanted to change your policy, you may made a request that look like this
 
 Rule B request
@@ -113,6 +116,7 @@ Rule B request
 when you made a request, any booking date that made in 4-6 will use rule B instead of A ( for instance,. if traveller book for a property with 1 date lenght of stay, they will get a rate of USD 10200.00 )
 
 ### Overlapping rule
+Given you got a situation where you want to update the price with same identifier ( in this document, I means that it got same roomTypeId, propertyId and occupancy)
 
 The last rule will take priority, please check the scenario below
 
