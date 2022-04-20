@@ -12,7 +12,7 @@
 - docker-compose up -d
 
 ### online editor
-[](https://editor.swagger.io/?raw=https://raw.githubusercontent.com/agoda-com/ycs5-pricing-api-spec/master/docs/openapi.yml)
+[editor.swagger.io](https://editor.swagger.io/?raw=https://raw.githubusercontent.com/agoda-com/ycs5-pricing-api-spec/master/docs/openapi.yml)
 
 ## Technical Comments/Contribution/Spec request
 - please open issue in this repository
