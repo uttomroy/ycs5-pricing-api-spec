@@ -272,7 +272,7 @@ Currently we have several limitations with the losRestriction field in restricti
 									"value": 2000
 								},
 								{
-									"los": 15,
+									"los": 15, // required as max los of this request
 									"value": 0
 								}
 							]
@@ -304,7 +304,7 @@ Currently we have several limitations with the losRestriction field in restricti
 									"value": 1400
 								},
 								{
-									"los": 15,
+									"los": 15, // max los
 									"value": 3000
 								}
 							]
@@ -325,11 +325,11 @@ Currently we have several limitations with the losRestriction field in restricti
           "minStayThrough": 5,
           "minAdvPurchase": 1,
           "maxAdvPurchase": 20,
-          "losRestriction": "111111111111111"
+          "losRestriction": "111111111111111" // 15 digits sa max los = 15
         },
         {
-          "startDate": "2022-07-01",
-          "endDate": "2022-07-10",
+          "startDate": "2023-01-01",
+          "endDate": "2023-01-10",
           "closed": false,
           "cta": false,
           "ctd": true,
@@ -338,14 +338,14 @@ Currently we have several limitations with the losRestriction field in restricti
           "minStayThrough": 5,
           "minAdvPurchase": 1,
           "maxAdvPurchase": 20,
-          "losRestriction": "111111111111110"
+          "losRestriction": "111111111111110" // 15 digits sa max los = 15
         }
       ]
 		}
 	]
 }
 ```
-From request above, here is the result
+From request above, here is the result from calling /api/rate/fplos/search
 ```json
 {
     "propertyId": 5,
@@ -392,7 +392,7 @@ From request above, here is the result
                 "minStayThrough": 5,
                 "minAdvPurchase": 1,
                 "maxAdvPurchase": 20,
-                "losRestriction": "111111111111111"
+                "losRestriction": "111111111111110"
             }
         },
         {
