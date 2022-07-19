@@ -103,6 +103,8 @@ components:
     OfferRate:
       type: object
       properties:
+        checkIn:
+          $ref: '#/components/schemas/CheckInDateRange'
         occupancyPrices:
           type: array
           items:
@@ -310,16 +312,10 @@ components:
       type: object
       description: The setup/update price offer 's request
       properties:
-        propertyId:
-          $ref: "#/components/schemas/PropertyId"
-        roomId:
-          $ref: "#/components/schemas/RoomId"
-        ratePlanId:
-          $ref: "#/components/schemas/RatePlanId"
-        checkInDateRange:
-          $ref: "#/components/schemas/CheckInDateRange"
-        rate:
-          $ref: "#/components/schemas/Rate"
+        offers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Offer"
         restricion:
           type: object
           description: The custom rate restriction rule, doesn't suppported yet at this version, please see the RateRestriction object to understand the default values we will used
