@@ -72,6 +72,15 @@ components:
       type: integer
       format: int32
       description: Agoda Rateplan ID related to a particular offer active on a room. <br/> Agoda active Rate Type IDs can be returned with Getproduct request.
+    LOSPrice:
+      type: object
+      properties:
+        los:
+          type: integer
+          description: Length of Stay
+        value:
+          type: number
+          description: Price Value (with the currrency described in property level)
     Occupancy:
       type: object
       properties:
@@ -87,6 +96,17 @@ components:
       properties:
         occupancy:
           $ref: '#/components/schemas/Occupancy'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/LOSPrice'
+    OfferRate:
+      type: object
+      properties:
+        occupancyPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/OccupancyPrice'
     CheckInDateRange:
       required:
       - start
@@ -167,11 +187,11 @@ components:
         roomId:
           $ref: "#/components/schemas/RoomId"
         ratePlanId:
-          $ref: "#/components/schemas/RoomId"
-        occupancyPrices:
+          $ref: "#/components/schemas/RatePlanId"
+        rates:
           type: array
           items:
-            $ref: "#/components/schemas/Rate"
+            $ref: '#/components/schemas/OfferRate'
 
     RateRestriction:
       description: the object inidicate the default rate restriction
