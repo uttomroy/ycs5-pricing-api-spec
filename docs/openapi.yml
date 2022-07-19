@@ -72,6 +72,10 @@ components:
       type: integer
       format: int32
       description: Agoda Rateplan ID related to a particular offer active on a room. <br/> Agoda active Rate Type IDs can be returned with Getproduct request.
+    Currency:
+      type: string
+      description: Rate plan's rate currency (must be the same currency as set up in property level)
+      example: USD
     LOSPrice:
       type: object
       properties:
@@ -153,9 +157,7 @@ components:
     Rate:
       properties:
         currency:
-          type: string
-          description: Rate plan's rate currency (must be the same currency as set up in property level)
-          example: USD
+          $ref: "#/components/schemas/Currency"
         prices:
           description: Price List
           type: array
@@ -366,6 +368,10 @@ components:
       type: object
       description: The setup/update price offer 's request
       properties:
+        propertyId:
+          $ref: "#/components/schemas/PropertyId"
+        currency:
+          $ref: "#/components/schemas/Currency"
         offers:
           type: array
           items:
