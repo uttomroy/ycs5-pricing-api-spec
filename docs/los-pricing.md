@@ -167,7 +167,7 @@ Given that Rule B looks like this
 }
 ```
 
-then the booking that happened after 4 January 2022 to 6 January 2022 will use 10200, 10000, 9000 as a rate depends on length of stay, instead of 6200, 6000, 5500, 5000
+then the booking that happened after 5 January 2022 to 7 January 2022 will use 10200, 10000, 9000 as a rate depends on length of stay, instead of 6200, 6000, 5500, 5000
 
 
 ### Updating Rates
