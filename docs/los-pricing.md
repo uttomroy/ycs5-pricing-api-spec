@@ -114,7 +114,7 @@ Rule B request
 
 ![update](images/rendered/los-update.svg)
 
-when you made a request, any booking date that made in 4-6 will use rule B instead of A ( for instance,. if traveller book for a property with 1 date lenght of stay, they will get a rate of USD 10200.00 )
+when you made a request, any booking date that made in 5-7 will use rule B instead of A ( for instance,. if traveller book for a property with 1 date lenght of stay, they will get a rate of USD 10200.00 )
 
 ### Overlapping rule
 Given you got a situation where you want to update the price with same identifier ( in this document, I means that it got same roomTypeId, propertyId and occupancy)
@@ -167,7 +167,7 @@ Given that Rule B looks like this
 }
 ```
 
-then the booking that happened after 5 January 2022 to 7 January 2022 will use 10200, 10000, 9000 as a rate depends on length of stay, instead of 6200, 6000, 5500, 5000
+then the booking that happened after 4 January 2022 to 7 January 2022 will use 10200, 10000, 9000 as a rate depends on length of stay, instead of 6200, 6000, 5500
 
 
 ### Updating Rates
