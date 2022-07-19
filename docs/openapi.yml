@@ -182,6 +182,61 @@ components:
             max:
               type: integer
               description: maximum occupancy
+    Closed:
+      type: boolean
+      description: Controls if rate type is open for sale or closed to sale. Close will stop room type regular inventory being sold even if inventory is available. 
+      default: false
+    Cta:
+      type: boolean
+      default: false
+      description: |
+        Close to arrival: Make a room unavailable to book if the guest check-in on a certain date. <br/>
+        Set to make rate type open or closed for arrival on this date. Customer can still stay through this date if they arrive on past date.
+    Ctd:
+      type: boolean 
+      default: false
+      description: |
+        Close to departure: Make a room unavailable to book if the guest check-out on a certain date.
+        Set to make rate type open or closed for departure on this date. Customer can still stay through this date if they depart on future date.
+    MinStay:
+      type: integer
+      format: int32
+      description: |
+        Minimum length of stay that is required to search and book this room type. minStay cannot be greater than maxStay.
+      default: 1
+    MaxStay:
+      type: integer
+      format: int32
+      description: |
+        Maximum length of stay that is required to search and book this room type. maxStay cannot be less than minStay.<br>
+        -1 stands for infinity, or no maxStay defined
+      default: -1
+    MinStayThrough:
+      type: integer 
+      format: int32
+      description: |
+        Minimum stay through - Minimum length of stay that is required to search and book this room type for stay through.
+      default: -1
+    MinAdvPurchase:
+      type: integer
+      format: int32
+      description: |
+        Minimum Days in advance that rate must be booked to be eligible for a specific rateplan.
+      default: -1
+      maximum: 90
+    MaxAdvPurchase:
+      type: integer
+      format: int32
+      description: |
+        Maximum Days in advance that rate must be booked to be eligible for a specific rateplan.
+      default: -1
+      maximum: 365
+    LosRestriction:
+      type: string
+      description: |
+        Restriction per los, only valid if closed flag is false. Length of this field is equal to max LOS sent in the request.
+        Example, date: 2021-12-01 and losRestriction: 1110111101, this means user won't see the allotment for 4 and 9 los, if he wants to checkin on this date.
+      example: "1110111101"
     SetRateRestriction:
       description: the object inidicate the default rate restriction
       type: object
@@ -197,59 +252,23 @@ components:
           description: "End date when this restrcition will be applied"
           example: "2022-03-02"
         closed:
-          type: boolean
-          description: Controls if rate type is open for sale or closed to sale. Close will stop room type regular inventory being sold even if inventory is available. 
-          default: false
+          $ref: "#/components/schemas/Closed"
         cta:
-          type: boolean
-          default: false
-          description: |
-            Close to arrival: Make a room unavailable to book if the guest check-in on a certain date. <br/>
-            Set to make rate type open or closed for arrival on this date. Customer can still stay through this date if they arrive on past date.
+            $ref: "#/components/schemas/Cta"
         ctd:
-          type: boolean 
-          default: false
-          description: |
-            Close to departure: Make a room unavailable to book if the guest check-out on a certain date.
-            Set to make rate type open or closed for departure on this date. Customer can still stay through this date if they depart on future date.
+          $ref: "#/components/schemas/Ctd"
         minStay:
-          type: integer
-          format: int32
-          description: |
-            Minimum length of stay that is required to search and book this room type. minStay cannot be greater than maxStay.
-          default: 1
+          $ref: "#/components/schemas/MinStay"
         maxStay:
-          type: integer
-          format: int32
-          description: |
-            Maximum length of stay that is required to search and book this room type. maxStay cannot be less than minStay.<br>
-            -1 stands for infinity, or no maxStay defined
-          default: -1
+          $ref: "#/components/schemas/MaxStay"
         minStayThrough:
-          type: integer 
-          format: int32
-          description: |
-            Minimum stay through - Minimum length of stay that is required to search and book this room type for stay through.
-          default: -1
+          $ref: "#/components/schemas/MinStayThrough"
         minAdvPurchase:
-          type: integer
-          format: int32
-          description: |
-            Minimum Days in advance that rate must be booked to be eligible for a specific rateplan.
-          default: -1
-          maximum: 90
+          $ref: "#/components/schemas/MinAdvPurchase"
         maxAdvPurchase:
-          type: integer
-          format: int32
-          description: |
-            Maximum Days in advance that rate must be booked to be eligible for a specific rateplan.
-          default: -1
-          maximum: 365
+          $ref: "#/components/schemas/MaxAdvPurchase"
         losRestriction:
-          type: integer
-          format: int32
-          description: |
-            Restriction per los
+          $ref: "#/components/schemas/LosRestriction"
     Offer:
       description: Offer object
       type: object
@@ -267,63 +286,27 @@ components:
           items:
             $ref: '#/components/schemas/SetRateRestriction'
     RateRestriction:
-      description: the object inidicate the default rate restriction
+      description: the object inidicate the rate restriction
       type: object
       properties:
         closed:
-          type: boolean
-          description: Controls if rate type is open for sale or closed to sale. Close will stop room type regular inventory being sold even if inventory is available. 
-          default: false
+          $ref: "#/components/schemas/Closed"
         cta:
-          type: boolean
-          default: false
-          description: |
-            Close to arrival: Make a room unavailable to book if the guest check-in on a certain date. <br/>
-            Set to make rate type open or closed for arrival on this date. Customer can still stay through this date if they arrive on past date.
+            $ref: "#/components/schemas/Cta"
         ctd:
-          type: boolean 
-          default: false
-          description: |
-            Close to departure: Make a room unavailable to book if the guest check-out on a certain date.
-            Set to make rate type open or closed for departure on this date. Customer can still stay through this date if they depart on future date.
+          $ref: "#/components/schemas/Ctd"
         minStay:
-          type: integer
-          format: int32
-          description: |
-            Minimum length of stay that is required to search and book this room type. minStay cannot be greater than maxStay.
-          default: 1
+          $ref: "#/components/schemas/MinStay"
         maxStay:
-          type: integer
-          format: int32
-          description: |
-            Maximum length of stay that is required to search and book this room type. maxStay cannot be less than minStay.<br>
-            -1 stands for infinity, or no maxStay defined
-          default: -1
+          $ref: "#/components/schemas/MaxStay"
         minStayThrough:
-          type: integer 
-          format: int32
-          description: |
-            Minimum stay through - Minimum length of stay that is required to search and book this room type for stay through.
-          default: -1
+          $ref: "#/components/schemas/MinStayThrough"
         minAdvPurchase:
-          type: integer
-          format: int32
-          description: |
-            Minimum Days in advance that rate must be booked to be eligible for a specific rateplan.
-          default: -1
-          maximum: 90
+          $ref: "#/components/schemas/MinAdvPurchase"
         maxAdvPurchase:
-          type: integer
-          format: int32
-          description: |
-            Maximum Days in advance that rate must be booked to be eligible for a specific rateplan.
-          default: -1
-          maximum: 365
+          $ref: "#/components/schemas/MaxAdvPurchase"
         losRestriction:
-          type: integer
-          format: int32
-          description: |
-            Restriction per los
+          $ref: "#/components/schemas/LosRestriction"
 # Request/Response Object
     GenericResponse:
       description: General Api response, to indicate the operation's status
