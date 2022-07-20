@@ -151,9 +151,9 @@ components:
           description: "Check-in date"
           example: "2022-03-02"
         rate:
-          type: array
-          items:
-            $ref: "#/components/schemas/Rate"
+          $ref: "#/components/schemas/Rate"
+        restriction:
+          $ref: "#/components/schemas/RateRestriction"
     Rate:
       properties:
         currency:
@@ -360,10 +360,9 @@ components:
         ratePlanId:
           $ref: "#/components/schemas/RatePlanId"
         rates:
-          $ref: "#/components/schemas/RateList"
-        restriction:
-          $ref: "#/components/schemas/RateRestriction"
-          type: object
+          type: array
+          items:
+            $ref: "#/components/schemas/RateList"
     PostRateLosRequest:
       type: object
       description: The setup/update price offer 's request
