@@ -7,7 +7,7 @@ servers:
 - url: https://supply.agoda.com
   description: "the existing api service for YCS5 apis"
 - url: https://supply-pricing.agoda.com
-  description: "new api service (under development)"
+  description: "new api service"
 security: []
 paths:
   /api/rate/fplos:
