@@ -4,8 +4,6 @@ info:
   description: "LOS Pricing APIs are only for to set/get the price and not support setting inventory yet, hence, partner will need to call other endpoint (SetARIV2) to set the inventory too."
   version: "0.0.1"
 servers:
-- url: https://supply.agoda.com
-  description: "the existing api service for YCS5 apis"
 - url: https://sandbox-distribution-xml.agoda.com
   description: "new api service"
 security: []
