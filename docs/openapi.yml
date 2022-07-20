@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PostRateLosResponse'
         403:
           description: Failing request
           content:
@@ -375,3 +375,14 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Offer"
+    PostRateLosResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+          example: "SUCCESS"
+        tuid:
+          type: string
+          description: A Track Unique Identifier (TUID) is an identifier which is guaranteed to be unique and it has a specific tracking purpose.
+          example: 49ecd740-34c9-11e9-bef4-137e7754803f
