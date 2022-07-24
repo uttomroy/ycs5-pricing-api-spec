@@ -281,7 +281,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OfferRate'
-        restrictinos:
+        restrictions:
           type: array
           items:
             $ref: '#/components/schemas/SetRateRestriction'
